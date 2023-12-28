@@ -16,6 +16,19 @@ describe('when Trusted Types are available in global object', () => {
   let container;
   let ttObject1;
   let ttObject2;
+  let fakeTTObjects;
+
+  const expectToReject = fn => {
+    let msg;
+    try {
+      fn();
+    } catch (x) {
+      msg = x.message;
+    }
+    expect(msg).toContain(
+      'React has blocked a javascript: URL as a security precaution.',
+    );
+  };
 
   const expectToReject = fn => {
     let msg;
