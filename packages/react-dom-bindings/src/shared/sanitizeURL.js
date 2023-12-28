@@ -25,6 +25,14 @@ const isJavaScriptProtocol =
 let didWarn = false;
 
 function sanitizeURL<T>(url: T): T | string {
+  if (
+    typeof trustedTypes === 'undefined' ||
+    !trustedTypes.isScriptURL(url)
+  ) {
+    // Coerce to a string, unless we know it's an immutable TrustedScriptURL object.
+    url = '' + url;
+  }
+
   // We should never have symbols here because they get filtered out elsewhere.
   // eslint-disable-next-line react-internal/safe-string-coercion
   const stringifiedURL = '' + (url: any);

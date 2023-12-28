@@ -176,8 +176,6 @@ export const disableCommentsAsDOMContainers = true;
 // Disable javascript: URL strings in href for XSS protection.
 export const disableJavaScriptURLs = false;
 
-export const enableTrustedTypesIntegration = false;
-
 // Prevent the value and checked attributes from syncing with their related
 // DOM properties
 export const disableInputAttributeSyncing = false;
