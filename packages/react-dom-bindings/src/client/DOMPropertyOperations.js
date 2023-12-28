@@ -9,7 +9,6 @@
 
 import isAttributeNameSafe from '../shared/isAttributeNameSafe';
 import {
-  enableTrustedTypesIntegration,
   enableCustomElementPropertySupport,
 } from 'shared/ReactFeatureFlags';
 import {checkAttributeStringCoercion} from 'shared/CheckStringCoercion';
@@ -135,7 +134,7 @@ export function setValueForAttribute(
     }
     node.setAttribute(
       name,
-      enableTrustedTypesIntegration ? (value: any) : '' + (value: any),
+      (value: any)
     );
   }
 }
@@ -163,7 +162,7 @@ export function setValueForKnownAttribute(
   }
   node.setAttribute(
     name,
-    enableTrustedTypesIntegration ? (value: any) : '' + (value: any),
+    (value: any)
   );
 }
 
@@ -192,7 +191,7 @@ export function setValueForNamespacedAttribute(
   node.setAttributeNS(
     namespace,
     name,
-    enableTrustedTypesIntegration ? (value: any) : '' + (value: any),
+    (value: any)
   );
 }
 

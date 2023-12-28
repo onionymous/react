@@ -7,7 +7,10 @@
  * @flow
  */
 
-import {disableJavaScriptURLs} from 'shared/ReactFeatureFlags';
+import {
+  disableJavaScriptURLs,
+  enableTrustedTypesIntegration,
+} from 'shared/ReactFeatureFlags';
 
 // A javascript: URL can contain leading C0 control or \u0020 SPACE,
 // and any newline or tab are filtered out as if they're not part of the URL.
@@ -28,6 +31,14 @@ function sanitizeURL<T>(url: T): T | string {
   // We should never have symbols here because they get filtered out elsewhere.
   // eslint-disable-next-line react-internal/safe-string-coercion
   const stringifiedURL = '' + (url: any);
+  if (
+    !enableTrustedTypesIntegration ||
+    typeof trustedTypes === 'undefined' ||
+    !trustedTypes.isScriptURL(url)
+  ) {
+    // Coerce to a string, unless we know it's an immutable TrustedScriptURL object.
+    url = stringifiedURL;
+  }
   if (disableJavaScriptURLs) {
     if (isJavaScriptProtocol.test(stringifiedURL)) {
       // Return a different javascript: url that doesn't cause any side-effects and just
